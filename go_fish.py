@@ -131,15 +131,21 @@ class Hand:
 				cards.append(self.cards[ranks.index(i)])
 		self.cards = cards
 
+	def showCard(self):
+		for card in self.cards:
+			print(card)
+
 
 
 '''
 This bolleen function will take in a hand object and check
-if there is a book (4cards with same rank) in it
-parameter: hand
+if there is a book (4cards with same rank) in it, if there is,
+remove the book from hand and add it to a given list
+parameter: hand, list
 return: Ture/ False
 '''
-def checkBook(hand):
+def checkBook(hand, lst):
+
     pass
 
 
@@ -151,6 +157,7 @@ return: True/False
 '''
 def checkCard(card, hand):
 	pass
+
 
 '''
 This function will prompt for the willingness of show
@@ -169,9 +176,20 @@ def checkInput(rank, hand):
 	pass
 
 '''
+This function print the given book and the length of them
+parameter: a book object
 '''
 def showBook():
     pass
+
+
+'''
+This function exchange the cards of given rank with two hands
+parameter: rank, two hands
+'''
+def exchangeCard(rank, handReceive, handGive):
+	pass
+
 
 
 def play_gofish():
