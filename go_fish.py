@@ -1,3 +1,5 @@
+import random
+
 class Card(object):
 	suit_names =  ["Diamonds","Clubs","Hearts","Spades"]
 	rank_levels = [1,2,3,4,5,6,7,8,9,10,11,12,13]
@@ -55,7 +57,7 @@ class Deck(object):
 				self.cards.append(card)
 
 	def deal(self, hand_num, card_num):
-		cards = []
+		# cards = []
 		hands = []
 		if (hand_num * card_num > 52) or (card_num == -1):
 			num = 52 // hand_num
@@ -68,9 +70,12 @@ class Deck(object):
 				hands[i].add_card(self.pop_card())
 		else:
 			for i in range(hand_num):
-				cards.append(self.cards[i*card_num:(i+1)*card_num])
-			for i in range(hand_num):
-				hands.append(Hand(cards[i]))
+				cards = []
+				for j in range(card_num):
+					cards.append(self.pop_card())
+					j += 1
+				hands.append(Hand(cards))
+			
 		
 		return hands			
 
@@ -127,3 +132,35 @@ class Hand:
 			if i%2 == 1:
 				cards.append(self.cards[ranks.index(i)])
 		self.cards = cards
+
+
+def play_gofish():
+	deck = Deck()
+	deck.shuffle()
+	hands = deck.deal(2, 7)
+	book0 = []
+	book1 = []
+	
+	
+
+play_gofish()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
