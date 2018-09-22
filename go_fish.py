@@ -155,7 +155,7 @@ parameter: hand, list
 return: Ture/ False
 '''
 def checkBook(hand, lst):
-	
+
     pass
 
 
