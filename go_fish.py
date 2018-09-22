@@ -70,22 +70,12 @@ class Deck(object):
 				hands[i].add_card(self.pop_card())
 		else:
 			for i in range(hand_num):
-<<<<<<< HEAD
-				cards.append(self.cards[i*card_num:(i+1)*card_num])
-			for i in range(hand_num):
-				hands.append(Hand(cards[i]))
-
-		return hands
-=======
 				cards = []
 				for j in range(card_num):
 					cards.append(self.pop_card())
 					j += 1
 				hands.append(Hand(cards))
-
-
 		return hands
->>>>>>> d1a09ff226d26c33986921e41de9e3b0af8dca51
 
 class Hand:
 	# create the Hand with an initial set of cards
@@ -190,7 +180,16 @@ def play_gofish():
 	hands = deck.deal(2, 7)
 	book0 = []
 	book1 = []
-
+	step = 0
+	while((len(book0)+len(book1))<13):
+		player = step % 2
+		print("Player0's current book: " + str(book0))
+		print("Player1's current book: " + str(book1))
+		show_flag = str(input("Do you want to see your cards? [y/n]"))
+		if show_flag == 'y':
+			hands[player].showCard()
+		
+		
 
 
 play_gofish()
