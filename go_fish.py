@@ -206,8 +206,8 @@ def play_gofish():
 		show_flag = str(input("Do you want to see your cards? [y/n]"))
 		if show_flag == 'y':
 			hands[player].showCard()
-		
-		
+
+
 
 
 play_gofish()
