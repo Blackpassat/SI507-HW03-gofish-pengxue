@@ -71,8 +71,8 @@ class Deck(object):
 				cards.append(self.cards[i*card_num:(i+1)*card_num])
 			for i in range(hand_num):
 				hands.append(Hand(cards[i]))
-		
-		return hands			
+
+		return hands
 
 class Hand:
 	# create the Hand with an initial set of cards
@@ -127,3 +127,44 @@ class Hand:
 			if i%2 == 1:
 				cards.append(self.cards[ranks.index(i)])
 		self.cards = cards
+
+
+
+'''
+This bolleen function will take in a hand object and check
+if there is a book (4cards with same rank) in it
+parameter: hand
+return: Ture/ False
+'''
+def checkBook(hand):
+    pass
+
+
+'''
+This bolleen function will check if there is a card in
+this hand whose rank if same with the given card
+parameter: card, hand
+return: True/False
+'''
+def checkCard(card, hand):
+	pass
+
+'''
+This function will prompt for the willingness of show
+cards in one hand, and print them if approved.
+parameter: hand, showOrNot
+return:
+'''
+def showCard(hand, showOrNot):
+	pass
+
+'''
+This function will check if the input from player is valid
+(There is a same input in the hand), if not valid, return an error
+'''
+def checkInput(rank, hand):
+	pass
+
+'''
+'''
+def showBook
