@@ -254,7 +254,7 @@ This function return a rank number which exist in a given hand
 parameter: hand, rank
 return: rank
 '''
-def returnRank(hand,rank):
+def returnRank(hand):
 	rankPool = []
 	for i in hand.cards:
 		rankPool.append(i.rank_num)
