@@ -231,9 +231,13 @@ def showWinner(lst):
 	for n in count:
 		if n > ini:
 			ini = n
+	num = 0
 	for o,v in enumerate(count):
 		if v == ini:
+			num += 1
 			print('The player', o, ' is the winner!')
+	if num > 1:
+		print("Game Draw!")
 
 
 '''
@@ -257,7 +261,8 @@ def play_gofish():
 	checkBook(hands[0], books[0])
 	checkBook(hands[1], books[1])
 	step = 0
-	while((len(books[0])+len(books[1]))<13 or len(hans[0].cards) == 0 or len(hands[1].cards) == 0):
+	continue_flag = True
+	while(continue_flag):
 		player = step % 2
 		print("Player0's current book: " + str(books[0]))
 		print("Player1's current book: " + str(books[1]))
@@ -287,6 +292,11 @@ def play_gofish():
 		else:
 			print("Oops, that's not the card you want. Change Player.")
 			step += 1
+		for i in range(2):
+			if len(hands[player].cards) == 0:
+				continue_flag = False
+		if len(deck.cards) == 0:
+			continue_flag = False
 
 	return books
 
