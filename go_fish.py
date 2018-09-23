@@ -232,9 +232,13 @@ def showWinner(lst):
 	for n in count:
 		if n > ini:
 			ini = n
+	num = 0
 	for o,v in enumerate(count):
 		if v == ini:
-			print('The player', o, ' is the winner!')
+			num += 1
+			print('Player', o, ' is the winner!')
+	if num > 1:
+		print("Game Draw!")
 
 
 '''
@@ -285,10 +289,10 @@ def play_gofish():
 	while(continue_flag):
 		player = step % player_num
 		next_player = player + 1
-		if next_player>3:
+		if next_player > (player_num - 1):
 			next_player = 0
-		print("Player0's current book: " + str(books[0]))
-		print("Player1's current book: " + str(books[1]))
+		for i in range(player_num):
+			print("Player"+str(i)+"'s current book: " + str(books[i]))
 		# show_flag = str(input("Player"+str(player)+", do you want to see your cards? [y/n]\n"))
 		# while(show_flag != 'y' and show_flag != 'n'):
 		# 	show_flag = str(input("Please type y or n, thanks.\n"))
@@ -328,8 +332,10 @@ def play_gofish():
 			step += 1
 
 		for i in range(player_num):
-			if len(hands[player]) == 0:
+			if len(hands[player].cards) == 0:
 				continue_flag = False
+		if len(deck.cards) == 0:
+			continue_flag = False
 
 	return books
 
