@@ -297,7 +297,7 @@ def play_gofish():
 		checkCard_nextPlayer_flag = checkCard(requested_card, hands[next_player])
 		if checkCard_nextPlayer_flag:
 			print("Seems player"+str(next_player)+" have the card you requested. Now get cards from player"+str(next_player))
-			exchangeCard(requested_card, hands[player], hands[next_player])
+			exchangeCard(requested_card, hands[player], hands[next_player], player, next_player)
 			checkBook(hands[player], books[player])
 			checkCard_fromPool_flag = 0
 		else:
