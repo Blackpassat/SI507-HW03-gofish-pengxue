@@ -151,6 +151,7 @@ def checkBook(hand, lst):
 	rk = 0
 	for c in counts.keys():
 		if counts[c] == 4:
+			print('Congratulation! Cards with rank ', c, 'formed a new book!' )
 			rk = c
 			lst.append(c)
 			for i in hand.cards:
@@ -209,9 +210,30 @@ This function print the given book and the length of them
 parameter: a book list
 '''
 def showBook(lst1, lst2):
+	len1 = len(lst1)
+	len2 = len(lst2)
 	print(lst1)
 	print(lst2)
-    print("Player0 has {} books, Player1 has {} books".format(len(lst1), len(lst2)))
+	print ("Player0 has {} books, Player1 has {} books".format(len1, len2))
+
+
+'''
+This function print the winner
+'''
+def showWinner(lst):
+	count = []
+	num = -1
+	for i in lst:
+		num = num+1
+		count.append(len(i))
+		print('Player', num, 'has ', len(i), ' books.')
+	ini = 0
+	for n in count:
+		if n > ini:
+			ini = n
+	for o,v in enumerate(count):
+		if v == ini:
+			print('The player', o, ' is the winner!')
 
 
 '''
@@ -219,7 +241,11 @@ This function exchange the cards of given rank with two hands
 parameter: rank, two hands
 '''
 def exchangeCard(rank, handReceive, handGive):
-	pass
+	for card in handGive.cards:
+		if card.rank_num == rank:
+			handReceive.cards.append(card)
+			handGive.remove(card)
+
 
 
 
