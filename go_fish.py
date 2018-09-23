@@ -264,10 +264,10 @@ def play_gofish():
 		show_flag = str(input("Player"+str(player)+", do you want to see your cards? [y/n]"))
 		if show_flag == 'y':
 			hands[player].showCard()
-		requested_card = str(input("Player" + str(player) + ", please request a card."))
+		requested_card = int(input("Player" + str(player) + ", please request a card."))
 		checkCard_flag = checkCard(requested_card, hands[player])
 		while(checkCard_flag == False):
-			requested_card = str(input("Please request a card you have in your hand!\nPlayer" + str(player) + " ,please request a card."))
+			requested_card = int(input("Please request a card you have in your hand!\nPlayer" + str(player) + " ,please request a card."))
 			checkCard_flag = checkCard(requested_card, hands[player])
 		checkCard_nextPlayer_flag = checkCard(requested_card, hands[1-player])
 		if checkCard_nextPlayer_flag:
@@ -278,7 +278,7 @@ def play_gofish():
 		else:
 			print("Seems player"+str(1-player)+"does not have the card you requested. Now get a card from the pool.")
 			card_from_pool = deck.pop_card()
-			checkCard_fromPool_flag = checkCard(card_from_pool, hands[player])
+			checkCard_fromPool_flag = checkCard(card_from_pool.rank_num, hands[player])
 			checkBook(hands[player], books[player])
 		
 		if checkCard_fromPool_flag:
