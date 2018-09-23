@@ -151,12 +151,13 @@ def checkBook(hand, lst):
 	rk = 0
 	for c in counts.keys():
 		if counts[c] == 4:
-			print('Congratulation! Cards with rank ', c, 'formed a new book!' )
+			print('Congratulation! Cards with rank ',c, 'formed a new book!' )
 			rk = c
 			lst.append(c)
-			for i in hand.cards:
-				if i.rank_num == rk:
-					hand.remove_card(i)
+			for j in range(4):
+				for i in hand.cards:
+					if i.rank_num == rk:
+						hand.remove_card(i)
 	if rk != 0:
 		return True
 	else:
@@ -244,7 +245,7 @@ def exchangeCard(rank, handReceive, handGive):
 	for card in handGive.cards:
 		if card.rank_num == rank:
 			handReceive.cards.append(card)
-			handGive.remove(card)
+			handGive.remove_card(card)
 
 
 
@@ -257,35 +258,48 @@ def play_gofish():
 	checkBook(hands[0], books[0])
 	checkBook(hands[1], books[1])
 	step = 0
+	player_num = int(input("Please input number of players: \n"))
+	while(player_num<2 or player_num>4):
+		player_num = int(input())
 	while((len(books[0])+len(books[1]))<13 or len(hans[0].cards) == 0 or len(hands[1].cards) == 0):
 		player = step % 2
 		print("Player0's current book: " + str(books[0]))
 		print("Player1's current book: " + str(books[1]))
-		show_flag = str(input("Player"+str(player)+", do you want to see your cards? [y/n]"))
-		if show_flag == 'y':
-			hands[player].showCard()
-		requested_card = int(input("Player" + str(player) + ", please request a card."))
+		# show_flag = str(input("Player"+str(player)+", do you want to see your cards? [y/n]\n"))
+		# while(show_flag != 'y' and show_flag != 'n'):
+		# 	show_flag = str(input("Please type y or n, thanks.\n"))
+		# if show_flag == 'y':
+		# 	hands[player].showCard()
+		requested_card = int(input("Player" + str(player) + ", please request a card.\n"))
 		checkCard_flag = checkCard(requested_card, hands[player])
 		while(checkCard_flag == False):
-			requested_card = int(input("Please request a card you have in your hand!\nPlayer" + str(player) + " ,please request a card."))
+			requested_card = int(input("Please request a card you have in your hand!\nPlayer" + str(player) + ", please request a card.\n"))
 			checkCard_flag = checkCard(requested_card, hands[player])
 		checkCard_nextPlayer_flag = checkCard(requested_card, hands[1-player])
 		if checkCard_nextPlayer_flag:
 			print("Seems player"+str(1-player)+" have the card you requested. Now get cards from player"+str(1-player))
-			exchangeCard(requested_card.rank_num, hands[player], hands[1-player])
+			exchangeCard(requested_card, hands[player], hands[1-player])
 			checkBook(hands[player], books[player])
-			checkCard_fromPool_flag = False
+			checkCard_fromPool_flag = 0
 		else:
-			print("Seems player"+str(1-player)+"does not have the card you requested. Now get a card from the pool.")
+			print("Seems player"+str(1-player)+" does not have the card you requested. Now get a card from the pool.")
 			card_from_pool = deck.pop_card()
-			checkCard_fromPool_flag = checkCard(card_from_pool.rank_num, hands[player])
+			print("The card you get from the pool is "+str(card_from_pool))
+			hands[player].add_card(card_from_pool)
+			if card_from_pool.rank_num == requested_card:
+				checkCard_fromPool_flag = 1
+			else:
+				checkCard_fromPool_flag = 2
 			checkBook(hands[player], books[player])
 
-		if checkCard_fromPool_flag:
-			print("congratulations! You got the card you requested! Next round is yours.")
+		if checkCard_fromPool_flag == 1:
+			print("congratulation! You got the card you requested! Next round is yours.")
 			step = step
-		else:
+		elif checkCard_fromPool_flag == 2:
 			print("Oops, that's not the card you want. Change Player.")
+			step += 1
+		else:
+			print("Change player.")
 			step += 1
 
 	return books
