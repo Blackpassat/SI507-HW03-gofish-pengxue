@@ -281,7 +281,8 @@ def play_gofish():
 	books = [[] for x in range(player_num)]
 	for i in range(player_num):
 		checkBook(hands[i], books[i])
-	while((len(books[0])+len(books[1]))<13 or len(hans[0].cards) == 0 or len(hands[1].cards) == 0):
+	continue_flag = True
+	while(continue_flag):
 		player = step % player_num
 		next_player = player + 1
 		if next_player>3:
@@ -293,15 +294,16 @@ def play_gofish():
 		# 	show_flag = str(input("Please type y or n, thanks.\n"))
 		# if show_flag == 'y':
 		# 	hands[player].showCard()
-		requested_card = int(input("Player" + str(player) + ", please request a card.\n"))
-		checkCard_flag = checkCard(requested_card, hands[player])
-		while(checkCard_flag == False):
-			requested_card = int(input("Please request a card you have in your hand!\nPlayer" + str(player) + ", please request a card.\n"))
-			checkCard_flag = checkCard(requested_card, hands[player])
+		requested_card = returnRank(hands[player])
+		print("Player"+str(player)+" is requesting card with rank "+str(requested_card)+".")
+		# checkCard_flag = checkCard(requested_card, hands[player])
+		# while(checkCard_flag == False):
+		# 	requested_card = int(input("Please request a card you have in your hand!\nPlayer" + str(player) + ", please request a card.\n"))
+		# 	checkCard_flag = checkCard(requested_card, hands[player])
 		checkCard_nextPlayer_flag = checkCard(requested_card, hands[next_player])
 		if checkCard_nextPlayer_flag:
 			print("Seems player"+str(next_player)+" have the card you requested. Now get cards from player"+str(next_player))
-			exchangeCard(requested_card, hands[player], hands[next_player])
+			exchangeCard(requested_card, hands[player], hands[next_player], player, next_player)
 			checkBook(hands[player], books[player])
 			checkCard_fromPool_flag = 0
 		else:
@@ -324,6 +326,10 @@ def play_gofish():
 		else:
 			print("Change player.")
 			step += 1
+
+		for i in range(player_num):
+			if len(hands[player]) == 0:
+				continue_flag = False
 
 	return books
 
