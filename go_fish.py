@@ -140,47 +140,78 @@ class Hand:
 '''
 This bolleen function will take in a hand object and check
 if there is a book (4cards with same rank) in it, if there is,
-remove the book from hand and add it to a given list
+remove the book from hand and add its rank to a given list
 parameter: hand, list
 return: Ture/ False
 '''
 def checkBook(hand, lst):
+	counts = dict()
+	for i in hand.cards:
+		counts[i.rank_num] = counts.get(i.rank_num,0) + 1
+	rk = 0
+	for c in counts.keys():
+		if counts[c] == 4:
+			rk = c
+			lst.append(c)
+			for i in hand.cards:
+				if i.rank_num == rk:
+					hand.remove_card(i)
+	if rk != 0:
+		return True
+	else:
+		return False
 
-    pass
+
+
 
 
 '''
 This bolleen function will check if there is a card in
-this hand whose rank if same with the given card
+this hand whose rank is same with the given card
 parameter: card, hand
 return: True/False
 '''
 def checkCard(card, hand):
-	pass
+	flag = 0
+	for i in hand.cards:
+		if i.rank_num == card.rank_num:
+			flag = 1
+	if flag == 0:
+		return False
+	else:
+		return True
 
 
-'''
-This function will prompt for the willingness of show
-cards in one hand, and print them if approved.
-parameter: hand, showOrNot
-return:
-'''
-def showCard(hand, showOrNot):
-	pass
+
 
 '''
 This function will check if the input from player is valid
 (There is a same input in the hand), if not valid, return an error
 '''
 def checkInput(rank, hand):
-	pass
+	if type(rank) is not int:
+		print("Please enter a rank number")
+		return False
+	flag = 0
+	for i in hand.cards:
+		if i.rank_num == rank:
+			flag = 1
+	if flag == 0:
+		print('There is no card in hand with this rank')
+		return False
+	else:
+		return True
+
+
 
 '''
 This function print the given book and the length of them
-parameter: a book object
+parameter: a book list
 '''
-def showBook():
-    pass
+def showBook(lst1, lst2):
+	print(lst1)
+	print(lst2)
+    print("Player0 has {} books, Player1 has {} books".format(len(lst1), len(lst2)))
 
 
 '''
