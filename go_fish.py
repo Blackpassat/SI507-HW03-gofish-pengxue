@@ -241,12 +241,18 @@ def showWinner(lst):
 This function exchange the cards of given rank with two hands
 parameter: rank, two hands
 '''
-def exchangeCard(rank, handReceive, handGive):
+def exchangeCard(rank, handReceive, handGive, player, next_player):
+	num = 0
 	for j in range(3):
 		for card in handGive.cards:
 			if card.rank_num == rank:
-			    handReceive.cards.append(card)
-			    handGive.remove_card(card)
+				num += 1
+				handReceive.cards.append(card)
+				handGive.remove_card(card)
+	if num == 1:
+		print('Player', next_player, " gives one card with rank ",rank, " to player",player)
+	if num > 1:
+		print('Player', next_player, "gives ", num, "cards with rank ",rank, " to player",player)
 
 
 '''
