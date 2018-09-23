@@ -242,10 +242,24 @@ This function exchange the cards of given rank with two hands
 parameter: rank, two hands
 '''
 def exchangeCard(rank, handReceive, handGive):
-	for card in handGive.cards:
-		if card.rank_num == rank:
-			handReceive.cards.append(card)
-			handGive.remove_card(card)
+	for j in range(3):
+		for card in handGive.cards:
+			if card.rank_num == rank:
+			    handReceive.cards.append(card)
+			    handGive.remove_card(card)
+
+
+'''
+This function return a rank number which exist in a given hand
+parameter: hand, rank
+return: rank
+'''
+def returnRank(hand,rank):
+	rankPool = []
+	for i in hand.cards:
+		rankPool.append(i.rank_num)
+	return rankPool[random.randint(0, len(rankPool)-1)]
+
 
 
 
