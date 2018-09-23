@@ -168,14 +168,14 @@ def checkBook(hand, lst):
 
 '''
 This bolleen function will check if there is a card in
-this hand whose rank is same with the given card
-parameter: card, hand
+this hand whose rank is same with the given card_rank
+parameter: rank, hand
 return: True/False
 '''
-def checkCard(card, hand):
+def checkCard(rank, hand):
 	flag = 0
 	for i in hand.cards:
-		if i.rank_num == card.rank_num:
+		if i.rank_num == rank:
 			flag = 1
 	if flag == 0:
 		return False
@@ -280,7 +280,7 @@ def play_gofish():
 			card_from_pool = deck.pop_card()
 			checkCard_fromPool_flag = checkCard(card_from_pool, hands[player])
 			checkBook(hands[player], books[player])
-		
+
 		if checkCard_fromPool_flag:
 			print("congratulations! You got the card you requested! Next round is yours.")
 			step = step
@@ -294,7 +294,3 @@ def play_gofish():
 if __name__ == "__main__":
 	books = play_gofish()
 	showWinner(books)
-
-
-
-
