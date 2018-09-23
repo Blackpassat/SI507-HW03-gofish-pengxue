@@ -267,16 +267,19 @@ def returnRank(hand,rank):
 def play_gofish():
 	deck = Deck()
 	deck.shuffle()
-	hands = deck.deal(2, 7)
-	books = [[] for x in range(2)]
-	checkBook(hands[0], books[0])
-	checkBook(hands[1], books[1])
 	step = 0
-	player_num = int(input("Please input number of players: \n"))
+	player_num = int(input("Please input number of players from 2 to 4: \n"))
 	while(player_num<2 or player_num>4):
-		player_num = int(input())
+		player_num = int(input("Number of players should be 2, 3 or 4! Please input again.\n "))
+	hands = deck.deal(player_num, 7)
+	books = [[] for x in range(player_num)]
+	for i in range(player_num):
+		checkBook(hands[i], books[i])
 	while((len(books[0])+len(books[1]))<13 or len(hans[0].cards) == 0 or len(hands[1].cards) == 0):
-		player = step % 2
+		player = step % player_num
+		next_player = player + 1
+		if next_player>3:
+			next_player = 0
 		print("Player0's current book: " + str(books[0]))
 		print("Player1's current book: " + str(books[1]))
 		# show_flag = str(input("Player"+str(player)+", do you want to see your cards? [y/n]\n"))
@@ -289,14 +292,14 @@ def play_gofish():
 		while(checkCard_flag == False):
 			requested_card = int(input("Please request a card you have in your hand!\nPlayer" + str(player) + ", please request a card.\n"))
 			checkCard_flag = checkCard(requested_card, hands[player])
-		checkCard_nextPlayer_flag = checkCard(requested_card, hands[1-player])
+		checkCard_nextPlayer_flag = checkCard(requested_card, hands[next_player])
 		if checkCard_nextPlayer_flag:
-			print("Seems player"+str(1-player)+" have the card you requested. Now get cards from player"+str(1-player))
-			exchangeCard(requested_card, hands[player], hands[1-player])
+			print("Seems player"+str(next_player)+" have the card you requested. Now get cards from player"+str(next_player))
+			exchangeCard(requested_card, hands[player], hands[next_player])
 			checkBook(hands[player], books[player])
 			checkCard_fromPool_flag = 0
 		else:
-			print("Seems player"+str(1-player)+" does not have the card you requested. Now get a card from the pool.")
+			print("Seems player"+str(next_player)+" does not have the card you requested. Now get a card from the pool.")
 			card_from_pool = deck.pop_card()
 			print("The card you get from the pool is "+str(card_from_pool))
 			hands[player].add_card(card_from_pool)
